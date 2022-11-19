@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function MoviesTable(props) {
     const [isLoaded, setLoaded] = React.useState(true);
@@ -14,6 +14,12 @@ function MoviesTable(props) {
         setContent(response);
 
     }, []);
+
+    const deleteMovies = (toBeDeleteMovieId) => {
+        let restOfTheMovies = content.movies.filter((movie) => movie._id !== toBeDeleteMovieId);
+        let newObj = {...content, movies: restOfTheMovies};
+        setContent(newObj);
+    }
 
     let filteredContent = [];
     
@@ -57,13 +63,17 @@ function MoviesTable(props) {
                 </thead>
                 <tbody>
                     {filteredContent.map(function(movie, idx) {
-                        return (<tr>
+                        return (<tr key={movie._id}>
                             <td className="px-2 text-center">{idx + 1}</td>
                             <td className="px-2 text-center">{movie.title}</td>
                             <td className="px-4 text-center">{movie.genre.name}</td>
                             <td className="px-2 text-center">{movie.numberInStock}</td>
                             <td className="px-2 text-center">{movie.dailyRentalRate}</td>
-                            <td><button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 px-4 rounded"> DELETE </button> </td>
+                            <td><button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 px-4 rounded"
+                            onClick={() => {
+                                deleteMovies(movie._id);
+
+                            }}> DELETE </button> </td>
                             
                             
                         </tr>
