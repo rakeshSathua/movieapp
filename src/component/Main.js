@@ -4,23 +4,22 @@ import React, { useEffect } from 'react';
 
 function Main() {
   const[cGenre, setGenre] = React.useState("");
-  const [cPage, setcPage] = React.useState(1);
+  //const [cPage, setcPage] = React.useState(1);
 
   const setGlobalGenre = (nGenre) => {
-    if (nGenre == "All Genre") {
-      setGenre("");
+    if (nGenre == "All GENRES"){
+      setGenre("")
     } else {
-        setGenre(nGenre);
-    }
-    setcPage(1);
-  }
+      setGenre(nGenre);
+    } 
+  }  
   
   return (
   <>
       <div className='flex mr-2 px-3'>
           
-          <Genre></Genre>
-          <Movies></Movies>
+          <Genre setGlobalGenre={setGlobalGenre}></Genre>
+          <Movies cGenre={cGenre}></Movies>
 
 
           {/* <Genre setGlobalGenre={setGlobalGenre}></Genre>
